@@ -1,0 +1,50 @@
+button {
+	color: white;
+	background-color: blue;
+	padding: 5px;
+	margin-bottom: 30px;
+	margin-right: 30px;
+	text-align: center;
+	height: 60px;
+	width: 60px;	
+}
+
+.outer_ring {
+	text-align: center;
+	margin-top: 80px;
+}
+
+.checkers::after {
+	content: "\2714";
+	position: absolute;
+	margin-top: 20px;
+	margin-left: 10px;
+}
+
+#shuffle_button, #check_button {
+	color: white;
+	background-color: red;
+
+}
+
+p {
+	font-size: 24px;
+	color: blue;
+	text-align: center;
+}
+
+.correct_p::after {
+	content: "\2714";
+	color: green;
+	margin: 10px;
+}
+
+.wrong_p::after {
+	content: "\2717";
+	color: red;
+	margin: 10px;
+
+}
+h3 {
+	text-align: center;
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Guess the word</title>
+</head>
+<link rel="stylesheet" type="text/css" href="CSS\4wordsgame.css">
+<body>
+	<h3>Make 4 letter words</h3>
+	<div class='outer_ring'>
+		<div class='letter_col_1'>
+			<!-- Contains the buttons -->
+			<button id='l1'>A</button>
+			<button id='l2'>C</button>
+		</div>
+		<div class='letter_col_2'>
+			<button id='check_button'>Check</button>
+			<button id='l3'>I</button>
+			<button id='l4'>D</button>
+			<button id='shuffle_button'>Shuffle</button>
+		</div>
+	</div>
+	<div class="">
+		<p id='ans'></p>
+		<p id='corr_ans'></p>
+		<h3 id='timer'></h3>
+
+	</div>
+</body>
+<script type="text/javascript">
+var b1 = document.querySelectorAll('button');
+var p_tag = document.getElementById('ans');
+var string = "";
+var id=0;
+var corr_p = document.getElementById('corr_ans');
+var db = ["ACID","AREA","APES","ACRE","ARTS","ACHE","ALPS",
+"BALL","BAND","BANK","BATH","BELT","BIRD","BOAT","BODY","BOOK","BOSS","BURN",
+"CALL","CAME","CAMP","CARD","CASE","CASH","CHIP","CITY","CLUB","COOK","COLD",
+"DARK","DATA","DATE","DEAD","DEAR","DEEP","DIAL","DIET","DOWN","DRAW","DUAL","DUKE","DUTY",
+"EXIT","EVIL","EVEN","EASY","EAST","EDGE","ELSE","EVER",
+"FAIL","FAIR","FALL","FARM","FAST","FEAR","FEED","FEEl","FEET","FILE","FILM","FLAT","FOOD","FUEL","FULL","FUND",
+"GEAR","GATE","GENE","GIFT","GIRL","GOAL","GLAD","GOLD","GOLF","GREW","GROW","GRAY",
+"HALL","HAND","HERO","HOLD","HILL","HOLY","HUGE","HOPE","HOUR","HURT",
+"IDEA","ITEM","INCH","IRON",
+"JEAN","JUMP","JOIN",
+"KEEN","KNOW","KING","KIND","KICK",
+"LAND","LAST","LEFT","LIST","LIVE","LOAD","LOAN","LOGO","LONG","LOSS","LORD","LIFE","LOSE",
+"MAIN","MAIL","MAKE","MILK","MAKE","MOOD","MOON","MOLE","MODE","MORE","MINT",
+"NEST","NEED","NEWS","NICE","NAVY","NOSE","NINE",
+"ONCE","ONLY","OVER","OPEN","OKAY",
+"PACE","PACK","PINK","PIPE","PLOT","PINE","PORT","POST","POOL","PLUS","PLAY","PLOT","POLL","POOR",
+"RACE","RELY","RICE","RENT","REAL","RISE","RISK","ROLE","ROCK","ROSE","ROOF",
+"SOLE","SHIP","SALT","SAME","SELL","SEND","SOLD","SEEK","SAID","SALE","SOIL","SOFT","SKIN","SILO",
+"TALL","TAKE","TANK","TERM","TIME","THIS","THAT","THEN","TOOK","TOWN","TREE","TRIP","TWIN",
+"UPON","UNIT","USER",
+"VOTE","VIEW","VAST","VARY",
+"WARM","WASH","WEAR","WEST","WHAT","WORK",
+"YEAR","YARD","YOUR",
+"ZEAL","ZERO","ZONE"];
+window.onload = function() {
+  shuffle_button();
+};
+
+function clicked() {
+	this.classList.add('checkers');
+	this.disabled = true;
+	add_string(this.innerText);
+}
+function check_button() {
+	p_tag.innerText = string;
+	b1[0].classList.remove('checkers');
+	b1[1].classList.remove('checkers');
+	b1[3].classList.remove('checkers');
+	b1[4].classList.remove('checkers');
+	b1[0].disabled = false;
+	b1[1].disabled = false;
+	b1[3].disabled = false;
+	b1[4].disabled = false;
+	check_from_db();
+	b1[2].disabled = true;
+
+
+}
+function check_from_db() {
+	if(db.indexOf(string)>=0) {
+		p_tag.classList.add('correct_p');
+		// alert(string);
+	}
+	else {
+		p_tag.classList.add('wrong_p');
+		corr_p.innerText = db[id];
+		corr_p.classList.add('correct_p');
+	}
+}
+function add_string(a) {
+	string+=a;
+}
+function shuffle_button() {
+	string="";
+	id = generate();
+	var shuffled = db[id].split('').sort(function(){return 0.5-Math.random()}).join('');
+	newbuttons(shuffled);
+	p_tag.classList.remove('correct_p');
+	p_tag.classList.remove('wrong_p');
+	p_tag.innerText="";
+	corr_p.innerText="";
+	corr_p.classList.remove('correct_p');
+	b1[0].classList.remove('checkers');
+	b1[1].classList.remove('checkers');
+	b1[3].classList.remove('checkers');
+	b1[4].classList.remove('checkers');
+	b1[0].disabled = false;
+	b1[1].disabled = false;
+	b1[3].disabled = false;
+	b1[4].disabled = false;
+	b1[2].disabled = false;
+	// timer_reset();
+}
+function generate() {
+	return (Math.floor(Math.random() * (db.length - 0 + 1)) + 0);
+}
+function newbuttons(string) {
+	b1[0].innerText = string[0];
+	b1[1].innerText = string[1];
+	b1[3].innerText = string[2];
+	b1[4].innerText = string[3];
+}
+b1[0].addEventListener('click', clicked);
+b1[1].addEventListener('click', clicked);
+b1[3].addEventListener('click', clicked);
+b1[4].addEventListener('click', clicked);
+b1[2].addEventListener('click', check_button);
+b1[5].addEventListener('click', shuffle_button);
+</script>
+</html>
